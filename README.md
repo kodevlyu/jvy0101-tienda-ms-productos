@@ -103,3 +103,20 @@ El servicio queda disponible en `http://localhost:8083`.
 ## Pruebas
 
 La colección de Postman `ms-productos` incluye casos de éxito (201, 200, 204) y de error (404, 400).
+## Pipeline CI/CD
+
+El microservicio utiliza GitHub Actions para automatizar:
+
+- Compilacion con Java 17 y Maven Wrapper.
+- Ejecucion de pruebas con PostgreSQL.
+- Construccion de la imagen Docker.
+- Publicacion de imagenes en GitHub Container Registry.
+- Despliegue en AWS EC2 mediante Docker Swarm.
+- Validacion del endpoint de productos.
+
+El servidor comprueba periodicamente las ejecuciones exitosas
+de la rama develop y despliega las nuevas versiones mediante
+un servicio y temporizador systemd.
+
+Las imagenes se identifican mediante el SHA del commit y
+se despliegan utilizando su digest.
